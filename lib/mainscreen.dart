@@ -28,85 +28,76 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Stack(
+      // ✅ Cho phép layout co giãn theo bàn phím
+      resizeToAvoidBottomInset: true,
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _screens,
+      ),
 
-        children:[ IndexedStack(
-          index: _currentIndex,
-          children: _screens,
-        ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(24),
-                child: BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed ,
-                  backgroundColor: const Color(0xff578FCA),
-                  currentIndex: _currentIndex,
-                  onTap: (index) => setState(() => _currentIndex = index),
+      // ✅ Sử dụng bottomNavigationBar thay vì Stack + Align
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0xff578FCA),
+        currentIndex: _currentIndex,
+        onTap: (index) => setState(() => _currentIndex = index),
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
 
-                  items: [
-                    BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        'assets/home.svg',
-                        width: 35,
-                        height: 35,
-                        colorFilter: ColorFilter.mode(
-                          _currentIndex == 0 ? Colors.yellow : Colors.white,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                      label: 'Home',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        'assets/map.svg',
-                        width: 35,
-                        height: 35,
-                        colorFilter: ColorFilter.mode(
-                          _currentIndex == 1 ? Colors.yellow : Colors.white,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                      label: '',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        'assets/event.svg',
-                        width: 30,
-                        height: 30,
-                        colorFilter: ColorFilter.mode(
-                          _currentIndex == 2 ? Colors.yellow : Colors.white,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                      label: '',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Padding(
-                        padding: const EdgeInsets.only(top:0.0),
-                        child: SvgPicture.asset(
-                          'assets/profile.svg',
-                          width: 30,
-                          height: 30,
-                          colorFilter: ColorFilter.mode(
-                            _currentIndex == 3 ? Colors.yellow : Colors.white,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                      label: '',
-                    ),
-                  ],
+        items: [
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/home.svg',
+              width: 35,
+              height: 35,
+              colorFilter: ColorFilter.mode(
+                _currentIndex == 0 ?Color(0xffFBBC05) : Colors.white,
+                BlendMode.srcIn,
+              ),
+            ),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/map.svg',
+              width: 35,
+              height: 35,
+              colorFilter: ColorFilter.mode(
+                _currentIndex == 1 ? Color(0xffFBBC05) : Colors.white,
+                BlendMode.srcIn,
+              ),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/event.svg',
+              width: 30,
+              height: 30,
+              colorFilter: ColorFilter.mode(
+                _currentIndex == 2 ? Color(0xffFBBC05) : Colors.white,
+                BlendMode.srcIn,
+              ),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: const EdgeInsets.only(top: 0.0),
+              child: SvgPicture.asset(
+                'assets/profile.svg',
+                width: 30,
+                height: 30,
+                colorFilter: ColorFilter.mode(
+                  _currentIndex == 3 ? Color(0xffFBBC05) : Colors.white,
+                  BlendMode.srcIn,
                 ),
               ),
             ),
+            label: '',
           ),
-        ]
-        ,
+        ],
       ),
-
     );
   }
 }
